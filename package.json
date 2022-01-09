@@ -1,0 +1,22 @@
+{
+  "name": "phantomus",
+  "version": "1.0.0",
+  "description": "Cli music player using puppeteer",
+  "main": "yt.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szkrd/phantomus.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/szkrd/phantomus/issues"
+  },
+  "homepage": "https://github.com/szkrd/phantomus#readme",
+  "dependencies": {
+    "chalk": "4.1.2",
+    "puppeteer-core": "13.0.1"
+  }
+}
