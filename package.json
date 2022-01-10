@@ -16,7 +16,6 @@
   },
   "homepage": "https://github.com/szkrd/phantomus#readme",
   "dependencies": {
-    "chalk": "4.1.2",
     "puppeteer-core": "13.0.1"
   }
 }

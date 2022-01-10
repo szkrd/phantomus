@@ -1,8 +1,7 @@
 const puppeteer = require('puppeteer-core');
-const chalk = require('chalk');
-const { ifHasParam, paramValueOf, print, getQuitFn, getCommonPuppArgs } = require('./utils');
+const { ifHasParam, paramValueOf, print, getQuitFn, getCommonPuppArgs, colorize } = require('./utils');
 
-const VER = '1.7';
+const VER = '1.8';
 const DEFAULT_VIDEO_ID = '5qap5aO4i9A'; // Chilled Cow /  Lofi Girl; other channel is "DWcJFNfaw9c"
 const DEBUG = ifHasParam('--debug');
 const SHOW_HEAD = ifHasParam('--head');
@@ -22,7 +21,7 @@ const quit = getQuitFn(pup);
 async function handleExit() { await quit(0, 'Closing chrome, good bye!'); }
 (async () => {
   process.on('SIGINT', handleExit);
-  print(`Let's try to play ${chalk.white(URL)}`);
+  print(`Let's try to play "${URL}"`);
   const headless = !SHOW_HEAD;
   const args = [
     ...getCommonPuppArgs(),

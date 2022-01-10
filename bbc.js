@@ -1,8 +1,8 @@
 const puppeteer = require('puppeteer-core');
-const chalk = require('chalk');
-const { ifHasParam, paramValueOf, print, getQuitFn, getCommonPuppArgs } = require('./utils');
+const { ifHasParam, paramValueOf, print, getQuitFn, getCommonPuppArgs, colorize } = require('./utils');
+const { red, yellow } = colorize;
 
-const VER = '1.1';
+const VER = '1.2';
 const DEFAULT_CHANNEL_ID = 'bbc_world_service'; // BBC World Service
 const DEBUG = ifHasParam('--debug');
 const SHOW_HEAD = ifHasParam('--head');
@@ -45,7 +45,7 @@ async function handleExit() { await quit(0, 'Closing chrome, good bye!'); }
   }
   if (LIST_CHANNELS) {
     if (channels && channels.length) {
-      channels.forEach(channel => console.info(`${chalk.yellow(channel.id)} - ${chalk.cyan(channel.text)}`));
+      channels.forEach(channel => console.info(`${yellow(channel.id)} - ${channel.text}`));
       await quit(0);
     } else {
       await quit(1, 'Channel list not found.')
@@ -54,11 +54,15 @@ async function handleExit() { await quit(0, 'Closing chrome, good bye!'); }
   if (FUZZY_CHANNEL_ID && channels && channels.length) {
     const match = channels.find(channel => channel.id.includes(FUZZY_CHANNEL_ID));
     if (match) {
-      print(`Channel "${chalk.yellow(match.id)}" selected.`);
+      print(`Channel "${yellow(match.id)}" selected.`);
       URL = URL.replace(/[^\/]*$/, match.id);
     }
   }
+  print(`Opening url "${URL}"`);
   await page.goto(URL);
-  await page.click('#play');
+  await page.waitForTimeout(1000);
+  try {
+    await page.click('#play');
+  } catch {}
   print('Done. Press ctrl+c to exit.');
 })();
