@@ -1,5 +1,5 @@
 const addColor = (colId = 'reset', s = '') => {
-  const colors = { reset: 0, red: 31, yellow: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37 };
+  const colors = { reset: 0, red: 31, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37 };
   const ansi = (num = 0) => `\x1b[${num}m`; // 1b = 033 (select graphic rendition)
   return ansi(colors[colId] || colors.reset) + s + ansi(colors.reset);
 };
@@ -7,6 +7,7 @@ const getColorizer = (color = '') => (s = '') => addColor(color, s);
 const colorize = {
   red: getColorizer('red'),
   yellow: getColorizer('yellow'),
+  cyan: getColorizer('cyan'),
 };
 
 const ifHasParam = (s = '') => process.argv.includes(s);

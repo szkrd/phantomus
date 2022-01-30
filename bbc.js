@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer-core');
 const { ifHasParam, paramValueOf, print, getQuitFn, getCommonPuppArgs, colorize } = require('./utils');
-const { red, yellow } = colorize;
+const { red, yellow, cyan } = colorize;
 
 const VER = '1.2';
 const DEFAULT_CHANNEL_ID = 'bbc_world_service'; // BBC World Service
@@ -58,11 +58,27 @@ async function handleExit() { await quit(0, 'Closing chrome, good bye!'); }
       URL = URL.replace(/[^\/]*$/, match.id);
     }
   }
-  print(`Opening url "${URL}"`);
+  print(`Opening url "${cyan(URL)}"`);
   await page.goto(URL);
   await page.waitForTimeout(1000);
   try {
     await page.click('#play');
   } catch {}
-  print('Done. Press ctrl+c to exit.');
+  print('Press ctrl+c anytime to exit.\n');
+
+  // print program info if possible (time, title and short synopsis)
+  let prevInfo = '';
+  const printInfo = async () => {
+    try {
+      let selector = 'div[class*=network-item][class*=with-label] > *';
+      let info = await page.$$eval(selector, els => els.map(el => (el.innerText ?? '').trim())) || [];
+      info = info.filter(s => !/^live$/i.test(s)).filter(s => s);
+      selector = 'p[class*=programme-details][class*=short-synopsis]';
+      const synopsis = (await page.$eval(selector, el => el.innerText) ?? '').trim();
+      info = (info && info.length ? info.join(' | ') : '') + (synopsis ? `\n(${synopsis})\n` : '');
+      if (info && info !== prevInfo) { print(prevInfo = info); }
+    } catch {}
+  };
+  printInfo();
+  setInterval(printInfo, 60 * 1000);
 })();

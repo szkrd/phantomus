@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer-core');
 const { ifHasParam, paramValueOf, print, getQuitFn, getCommonPuppArgs, colorize } = require('./utils');
+const { cyan } = colorize;
 
 const VER = '1.8';
 const DEFAULT_VIDEO_ID = '5qap5aO4i9A'; // Chilled Cow /  Lofi Girl; other channel is "DWcJFNfaw9c"
@@ -21,7 +22,7 @@ const quit = getQuitFn(pup);
 async function handleExit() { await quit(0, 'Closing chrome, good bye!'); }
 (async () => {
   process.on('SIGINT', handleExit);
-  print(`Let's try to play "${URL}"`);
+  print(`Let's try to play "${cyan(URL)}"`);
   const headless = !SHOW_HEAD;
   const args = [
     ...getCommonPuppArgs(),
