@@ -21,12 +21,12 @@ Install: `git clone https://github.com/szkrd/phantomus.git && cd phantomus && np
 ## install with aliases
 
 ```bash
-function yt() { node /home/.../phantomus/yt.js "$@"; }                                                              │···
-alias yt-synthwave="yt --vid=0_2t6VYgwOY"                                                                                               │···
-alias yt-chillsynt="yt --vid=xxgxkjV70Vc"                                                                                               │···
-alias yt-darksynth="yt --vid=hNmWvk_mUVE"                                                                                               │···
-alias yt-nightride="yt --vid=csJT1QKSulA"                                                                                               │···
-alias yt-lofigirl="yt --vid=5qap5aO4i9A"                                                                                                │···
-alias yt-cryochamber="yt --vid=WrWghNTNoeg"                                                                                             │···
+function yt() { node /home/.../phantomus/yt.js "$@"; }
+alias yt-synthwave="yt --vid=0_2t6VYgwOY"
+alias yt-chillsynt="yt --vid=xxgxkjV70Vc"
+alias yt-darksynth="yt --vid=hNmWvk_mUVE"
+alias yt-nightride="yt --vid=csJT1QKSulA"
+alias yt-lofigirl="yt --vid=5qap5aO4i9A"
+alias yt-cryochamber="yt --vid=WrWghNTNoeg"
 alias bbc="node /home/.../phantomus/bbc.js"
 ```
