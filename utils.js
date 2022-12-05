@@ -36,6 +36,25 @@ const getCommonPuppArgs = () => [
   '--use-gl=egl',
 ];
 
+const shortRadioNames = {
+  '1': 'bbc_radio_one',
+  '1d': 'bbc_radio_one_dance',
+  '1r': 'bbc_radio_one_relax',
+  '1x': 'bbc_1xtra',
+  '2': 'bbc_radio_two',
+  '3': 'bbc_radio_three',
+  '4': 'bbc_radio_fourfm',
+  '4x': 'bbc_radio_four_extra',
+  '5': 'bbc_radio_five_live',
+  '6': 'bbc_6music',
+  'a': 'bbc_asian_network',
+  'w': 'bbc_world_service',
+};
+
+const fromChannelIds = (abbr) => {
+  return shortRadioNames[abbr];
+}
+
 module.exports = {
   ifHasParam,
   paramValueOf,
@@ -43,4 +62,6 @@ module.exports = {
   getQuitFn,
   getCommonPuppArgs,
   colorize,
+  shortRadioNames,
+  fromChannelIds,
 };

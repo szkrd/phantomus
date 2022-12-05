@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer-core');
-const { ifHasParam, paramValueOf, print, getQuitFn, getCommonPuppArgs, colorize } = require('./utils');
+const { ifHasParam, paramValueOf, print, getQuitFn, getCommonPuppArgs, colorize, shortRadioNames, fromChannelIds } = require('./utils');
 const { red, yellow, cyan } = colorize;
 
 const VER = '1.2';
@@ -7,7 +7,8 @@ const DEFAULT_CHANNEL_ID = 'bbc_world_service'; // BBC World Service
 const DEBUG = ifHasParam('--debug');
 const SHOW_HEAD = ifHasParam('--head');
 const LIST_CHANNELS = ifHasParam('--list-channels') || ifHasParam('-l');
-const CHANNEL_ID = paramValueOf('--channel') || paramValueOf('-c');
+let CHANNEL_ID = paramValueOf('--channel') || paramValueOf('-c');
+CHANNEL_ID = fromChannelIds(CHANNEL_ID) || CHANNEL_ID;
 const FUZZY_CHANNEL_ID = paramValueOf('--fuzzy') || paramValueOf('-f');
 let URL = `https://www.bbc.co.uk/sounds/player/${CHANNEL_ID || DEFAULT_CHANNEL_ID}`;
 const LIST_URL = 'https://www.bbc.co.uk/sounds/stations';
@@ -17,7 +18,8 @@ if (!BROWSER_PATH && process.platform === 'linux') BROWSER_PATH = '/usr/bin/chro
 if (!BROWSER_PATH && process.platform === 'win32') BROWSER_PATH = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 if (ifHasParam('--help')) {
   console.info(`Script ver is ${VER}\nParams (all optional):\n--help\n--debug\n--head\n--list-channels (or -l)\n` +
-    '--channel=CHANNEL_ID (or -c=)\n--fuzzy=CHANNEL_ID_SUBSTRING (or -f=)\n--browser=/usr/bin/chromium\n--alsa=ALSA_DEVICE_ID');
+    `--channel=CHANNEL_ID (or -c=)(abbreviations: ${Object.keys(shortRadioNames).sort().join(',')})\n` +
+    `--fuzzy=CHANNEL_ID_SUBSTRING (or -f=)\n--browser=/usr/bin/chromium\n--alsa=ALSA_DEVICE_ID`);
   process.exit();
 }
 let pup = { browser: null, page: null };
@@ -27,7 +29,8 @@ async function handleExit() { await quit(0, 'Closing chrome, good bye!'); }
   process.on('SIGINT', handleExit);
   const headless = !SHOW_HEAD;
   const args = [
-    ...getCommonPuppArgs(),
+    // lately the user agent param started to misbehave (403)
+    ...getCommonPuppArgs().filter(param => !param.startsWith('--user-agent')),
     ALSA_DEVICE ? `--alsa-output-device=${ALSA_DEVICE}` : '',
     headless ? '--headless' : ''
   ].filter(x => x);
@@ -62,7 +65,7 @@ async function handleExit() { await quit(0, 'Closing chrome, good bye!'); }
   await page.goto(URL);
   await page.waitForTimeout(1000);
   try {
-    await page.click('#play');
+    await page.click('button[aria-label="play"]'); // we used to have a "#play" element
   } catch {}
   print('Press ctrl+c anytime to exit.\n');
 

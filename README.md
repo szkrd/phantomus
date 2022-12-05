@@ -14,7 +14,7 @@ Install: `git clone https://github.com/szkrd/phantomus.git && cd phantomus && np
 
 - Help: `node bbc --help`
 - List channels: `node bbc --list-channels` / `node bbc -l`
-- Play channel: `node bbc --channel=bbc_1xtra` / `node bbc -c=bbc_6music`
+- Play channel: `node bbc --channel=bbc_1xtra` / `node bbc -c=bbc_6music` / `node bbc -c=1r`
 - Play channel: `node bbc --fuzzy=world` / `node bbc -f=four`
 - Install to user bin: `TO=~/bin/bbc&&echo -e '#!/usr/bin/env bash'>$TO&&echo "node $(pwd)/bbc \$@">>$TO&&chmod +x $TO&&unset TO`
 
