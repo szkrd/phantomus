@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Cli music player using puppeteer",
   "main": "yt.js",
-  "scripts": {},
+  "scripts": {
+    "format": "prettier -w bbc.js yt.js src"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/szkrd/phantomus.git"
@@ -17,5 +19,8 @@
   "homepage": "https://github.com/szkrd/phantomus#readme",
   "dependencies": {
     "puppeteer-core": "13.0.1"
+  },
+  "devDependencies": {
+    "prettier": "2.8.1"
   }
 }
