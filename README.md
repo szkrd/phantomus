@@ -36,10 +36,13 @@ Install: `git clone https://github.com/szkrd/phantomus.git && cd phantomus && np
 
 ![bbc.js](./docs/demo-bbc.png)
 
-## install with aliases
+## install with functions/aliases
+
+Add to your `.bashrc` or `.bash_aliases`.
 
 ```bash
 function yt() { node /home/.../phantomus/yt.js "$@"; }
 alias yt-foobar="yt --vid=0_2t6VYgwOY"
+alias yt-search="node /home/.../phantomus/yt-search.js"
 alias bbc="node /home/.../phantomus/bbc.js"
 ```

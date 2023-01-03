@@ -10,7 +10,7 @@ const {
   colorize,
   getBrowserPath,
 } = require('./src/utils');
-const { cyan, blue } = colorize;
+const { cyan, yellow } = colorize;
 let ytSearchData = { ok: false };
 try {
   ytSearchData = require('./.yt-search.json');
@@ -33,7 +33,7 @@ if (ytSearchData.ok && /^\d+$/.test(LAST_ARG)) {
   const item = ytSearchData.results[parseInt(LAST_ARG, 10)] ?? {};
   if (item.id && item.title) {
     VIDEO_ID = item.id;
-    print(`Using video id from search results ("${blue(item.title)}")`);
+    print(`Using video id from search results ("${yellow(item.title)}")`);
   }
 }
 const urlQueryParams = 'autoplay=1&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0';
