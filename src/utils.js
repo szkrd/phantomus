@@ -1,3 +1,4 @@
+const path = require('path');
 const constants = require('./constants');
 
 const addColor = (colId = 'reset', s = '') => {
@@ -26,6 +27,10 @@ const getBrowserPath = () => {
   if (platform.linux) return constants.BROWSER_PATH_LINUX;
   if (platform.windows) return constants.BROWSER_PATH_WINDOWS;
   return '';
+};
+
+const getScriptPath = () => {
+  return path.dirname(process.argv[1]).replace(/\\/g, '/');
 };
 
 const textToLines = (text = '') =>
@@ -103,6 +108,7 @@ const fromChannelIds = (abbr) => {
 
 module.exports = {
   platform,
+  getScriptPath,
   getBrowserPath,
   ifHasParam,
   paramValueOf,

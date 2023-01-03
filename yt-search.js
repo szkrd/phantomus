@@ -9,6 +9,7 @@ const {
   getQuitFn,
   getCommonPuppArgs,
   colorize,
+  getScriptPath,
   getBrowserPath,
 } = require('./src/utils');
 const { cyan, red, blue, yellow } = colorize;
@@ -79,8 +80,9 @@ if (LAST_ARG.startsWith('-')) {
     });
     // save it into the output json
     if (JSON_OUTPUT && JSON_OUTPUT !== 'null' && JSON_OUTPUT !== '"null"') {
-      await writeFile(JSON_OUTPUT, JSON.stringify({ ok: true, query: LAST_ARG, url: URL, results }, null, 2), 'utf-8');
-      print(`(Result saved as ${JSON_OUTPUT}, you can use the (first) result with "node yt 0")`);
+      const target = getScriptPath() + '/' + JSON_OUTPUT;
+      await writeFile(target, JSON.stringify({ ok: true, query: LAST_ARG, url: URL, results }, null, 2), 'utf-8');
+      print(`(Result saved as ${JSON_OUTPUT} in script dir, you can use the (first) result with "node yt 0")`);
     }
   }
   if (!DEBUG) return pup.browser.close(); // promise
