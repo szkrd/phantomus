@@ -99,7 +99,7 @@ if (ifHasParam('--show-channel-info') || ifHasParam('-ci')) {
     const match = channels.find((channel) => channel.id.includes(FUZZY_CHANNEL_ID));
     if (match) {
       print(`Channel "${yellow(match.id)}" selected.`);
-      URL = URL.replace(/[^\/]*$/, match.id);
+      URL = URL.replace(/[^/]*$/, match.id);
     }
   }
   print(`Opening url "${cyan(URL)}"`);
@@ -107,7 +107,9 @@ if (ifHasParam('--show-channel-info') || ifHasParam('-ci')) {
   await page.waitForTimeout(1000);
   try {
     await page.click('button[aria-label="play"]'); // we used to have a "#play" element
-  } catch {}
+  } catch {
+    // noop
+  }
   print('Press ctrl+c anytime to exit.\n');
 
   // print program info if possible (time, title and short synopsis)
@@ -120,7 +122,7 @@ if (ifHasParam('--show-channel-info') || ifHasParam('-ci')) {
       const frame = await frameHandle.contentFrame();
       let selector = 'main';
       let info = (await frame.$$eval(selector, (els) => els.map((el) => (el.innerText ?? '').trim()))) || [];
-      lines = textToLines(info[0] || '').filter(
+      const lines = textToLines(info[0] || '').filter(
         (line) => !line.startsWith('LIVE') && !line.startsWith('View Full Schedule') && !line.includes('Head to BBC')
       );
       // first line looks like a time schedule info
@@ -137,7 +139,9 @@ if (ifHasParam('--show-channel-info') || ifHasParam('-ci')) {
       if (info && info !== prevInfo) {
         print((prevInfo = info) + '\n');
       }
-    } catch {}
+    } catch {
+      // noop
+    }
   };
   printInfo();
   setInterval(printInfo, 30 * 1000);

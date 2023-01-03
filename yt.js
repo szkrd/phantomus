@@ -60,6 +60,8 @@ if (ifHasParam('--help') || ifHasParam('-h')) {
   try {
     const errMsg = await page.$eval('.ytp-error', (el) => el.innerText);
     if (errMsg) quit(1, errMsg);
-  } catch {}
+  } catch {
+    // noop
+  }
   print('Done. Press ctrl+c to exit.');
 })();
