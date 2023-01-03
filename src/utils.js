@@ -13,6 +13,7 @@ const colorize = {
   red: getColorizer('red'),
   yellow: getColorizer('yellow'),
   cyan: getColorizer('cyan'),
+  blue: getColorizer('blue'),
 };
 
 const platform = {

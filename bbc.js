@@ -34,7 +34,7 @@ if (ifHasParam('--help') || ifHasParam('-h')) {
   console.info(
     `Script ver is ${VER}\nParams (all optional):\n--help (or -h)\n--debug (or -d)\n--head\n--list-channels (or -l)\n` +
       `--channel=CHANNEL_ID (or -c=)(abbreviations: ${Object.keys(shortRadioNames).sort().join(',')})\n` +
-      `--show-channel-info (or -ci)``--fuzzy=CHANNEL_ID_SUBSTRING (or -f=)\n--browser=/usr/bin/chromium\n--alsa=ALSA_DEVICE_ID`
+      `--show-channel-info (or -ci) --fuzzy=CHANNEL_ID_SUBSTRING (or -f=)\n--browser=/usr/bin/chromium\n--alsa=ALSA_DEVICE_ID`
   );
   process.exit();
 }

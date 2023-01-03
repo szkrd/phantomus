@@ -105,3 +105,5 @@ dist
 
 # Fuck npm
 package-lock.json
+
+.yt-search.json

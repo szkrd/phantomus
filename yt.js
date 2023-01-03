@@ -10,18 +10,34 @@ const {
   colorize,
   getBrowserPath,
 } = require('./src/utils');
-const { cyan } = colorize;
+const { cyan, blue } = colorize;
+let ytSearchData = { ok: false };
+try {
+  ytSearchData = require('./.yt-search.json');
+} catch {
+  // noop
+}
 
 // CONSTANTS
 const VER = '1.9';
 const DEFAULT_VIDEO_ID = constants.DEFAULT_YOUTUBE_VIDEO_ID;
 const DEBUG = ifHasParam('--debug') || ifHasParam('-d');
 const SHOW_HEAD = ifHasParam('--head');
-const VIDEO_ID = paramValueOf('--vid');
-const urlQueryParams = 'autoplay=1&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0';
-const URL = `https://www.youtube.com/embed/${VIDEO_ID || DEFAULT_VIDEO_ID}?${urlQueryParams}`;
+let VIDEO_ID = paramValueOf('--vid');
+const LAST_ARG = process.argv[process.argv.length - 1];
 const ALSA_DEVICE = paramValueOf('--alsa');
 const BROWSER_PATH = paramValueOf('--browser') || getBrowserPath();
+
+// GET VIDEO ID
+if (ytSearchData.ok && /^\d+$/.test(LAST_ARG)) {
+  const item = ytSearchData.results[parseInt(LAST_ARG, 10)] ?? {};
+  if (item.id && item.title) {
+    VIDEO_ID = item.id;
+    print(`Using video id from search results ("${blue(item.title)}")`);
+  }
+}
+const urlQueryParams = 'autoplay=1&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0';
+const URL = `https://www.youtube.com/embed/${VIDEO_ID || DEFAULT_VIDEO_ID}?${urlQueryParams}`;
 
 // SHOW HELP AND EXIT
 if (ifHasParam('--help') || ifHasParam('-h')) {

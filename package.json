@@ -4,8 +4,8 @@
   "description": "Cli music player using puppeteer",
   "main": "yt.js",
   "scripts": {
-    "format": "prettier -w bbc.js yt.js src",
-    "lint": "eslint bbc.js yt.js src && prettier -c bbc.js yt.js src"
+    "format": "prettier -w bbc.js yt.js yt-search.js src",
+    "lint": "eslint bbc.js yt.js yt-search.js src && prettier -c bbc.js yt.js src"
   },
   "repository": {
     "type": "git",

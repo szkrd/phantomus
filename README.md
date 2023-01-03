@@ -4,30 +4,42 @@ Quick and dirty cli music player using puppeteer.
 
 Install: `git clone https://github.com/szkrd/phantomus.git && cd phantomus && npm install`
 
+## yt-search
+
+- Help: `node yt-search --help`
+- Search for live feeds:
+  - lo fi: `node yt-search "lofi girl"`
+  - drone: `node yt-search "cryo chamber"`
+  - enka: `node yt-search enka`
+  - jpop: `node yt-search jpop`
+  - etc.
+
+![yt-search.js](./docs/demo-yt-search.png)
+
 ## yt
 
 - Help: `node yt --help`
 - Play video: `node yt --vid=FuWljRgJYKw`
+- Play video based on **yt-search** result: `node yt 0` / `node yt 9`
 - Install a specific channel to user bin: `TO=~/bin/yt-synthwave&&echo -e '#!/usr/bin/env bash'>$TO&&echo "node $(pwd)/yt --vid=q5OjZhOYhow">>$TO&&chmod +x $TO&&unset TO`
+
+![yt.js](./docs/demo-yt.png)
 
 ## bbc
 
 - Help: `node bbc --help`
 - List channels: `node bbc --list-channels` / `node bbc -l`
-- Play channel: `node bbc --channel=bbc_1xtra` / `node bbc -c=bbc_6music` / `node bbc -c=4`
 - List channel id abbreviations: `node bbc --show-channel-info` / `node bbc -ci`
-- Play channel: `node bbc --fuzzy=world` / `node bbc -f=four`
+- Play channel: `node bbc --channel=bbc_1xtra` / `node bbc -c=bbc_6music` / `node bbc -c=4`  
+  `node bbc --fuzzy=world` / `node bbc -f=four` / `node bbc -c=a`
 - Install to user bin: `TO=~/bin/bbc&&echo -e '#!/usr/bin/env bash'>$TO&&echo "node $(pwd)/bbc \$@">>$TO&&chmod +x $TO&&unset TO`
+
+![bbc.js](./docs/demo-bbc.png)
 
 ## install with aliases
 
 ```bash
 function yt() { node /home/.../phantomus/yt.js "$@"; }
-alias yt-synthwave="yt --vid=0_2t6VYgwOY"
-alias yt-chillsynt="yt --vid=xxgxkjV70Vc"
-alias yt-darksynth="yt --vid=hNmWvk_mUVE"
-alias yt-nightride="yt --vid=csJT1QKSulA"
-alias yt-lofigirl="yt --vid=5qap5aO4i9A"
-alias yt-cryochamber="yt --vid=WrWghNTNoeg"
+alias yt-foobar="yt --vid=0_2t6VYgwOY"
 alias bbc="node /home/.../phantomus/bbc.js"
 ```
