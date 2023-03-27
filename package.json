@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/szkrd/phantomus#readme",
   "dependencies": {
-    "puppeteer-core": "13.0.1"
+    "puppeteer-core": "19.8.0"
   },
   "devDependencies": {
     "eslint": "8.31.0",

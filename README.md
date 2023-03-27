@@ -1,3 +1,16 @@
+![rip](./docs/rip.png)
+
+Lived: 1 year, 2 months, 18 days.
+
+Killed by Chrome/Puppeteer; rest in peace, good software.
+
+(Puppeteer stopped playing back media reliably for me in headless mode, though it still "mostly"
+works with the browser window open (using the `--head` parameter), except when it doesn't. Debugging
+headless and/or automated browsers are a pain in the back anyway: long live walled gardens and
+the megacorps of the ever brighter future!)
+
+---
+
 # phantomus
 
 Quick and dirty cli music player using puppeteer.
